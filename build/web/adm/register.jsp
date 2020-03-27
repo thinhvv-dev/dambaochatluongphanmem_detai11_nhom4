@@ -28,13 +28,19 @@
                 padding-top: 12px;
                 margin-top: 8px;
             }
+    
         </style>
     </head>
     <body>
         <jsp:include page="/header.jsp"></jsp:include>
         <div class="container mt-3" style="text-align: center;">
-            <form action="/login" method="post" class="mt-3">
+            <h2>Đăng kí tài khoản</h2>
+            <form action="/register" method="post" class="mt-3">
                 <table style="font-size: large" class="table table-borderless">
+                    <tr>
+                        <td><label>Số tài khoản</label></td>
+                        <td><input type="number" name="numberaccount" value="${numberaccount}" readonly=""></td>
+                    </tr>
                     <tr>
                         <td><label>Họ tên</label></td>
                         <td><input type="text" name="name" required="" placeholder="Họ tên"></td>

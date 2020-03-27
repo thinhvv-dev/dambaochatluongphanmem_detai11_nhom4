@@ -5,15 +5,15 @@
  */
 package service;
 
-import dao.RegisterDAO;
-import model.BankAccountDTO;
+import dao.RegisterandLoginDAO;
+import model.Account;
 
 /**
  *
  * @author NguyenDinhTien
  */
-public class RegisterService {
-    public static void insertBankAccount(BankAccountDTO bankAccountDTO){
-        RegisterDAO.insertBankAccount(bankAccountDTO);
+public class RegisterandLoginService {
+    public static Account getAccount(String userName){
+        return RegisterandLoginDAO.getAccount(userName);
     }
 }

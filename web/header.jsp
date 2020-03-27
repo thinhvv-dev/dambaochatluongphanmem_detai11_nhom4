@@ -29,10 +29,16 @@
                     <a class="nav-link" href="/register">Đăng kí tài khoản</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#2">Mở sổ tiết kiểm</a>
+                    <a class="nav-link" href="/saving">Mở sổ tiết kiệm</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#3">Rút sổ</a>
+                    <a class="nav-link" href="/withdrawbook">Rút sổ</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/interestrate">Tính lãi suất</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#5">Internet Banking</a>
                 </li>
             </ul>
         </nav>

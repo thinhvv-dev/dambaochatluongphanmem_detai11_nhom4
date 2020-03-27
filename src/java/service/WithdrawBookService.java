@@ -5,15 +5,15 @@
  */
 package service;
 
-import dao.RegisterDAO;
-import model.BankAccountDTO;
+import dao.WithdrawBookDAO;
+import model.SavingDTO;
 
 /**
  *
  * @author NguyenDinhTien
  */
-public class RegisterService {
-    public static void insertBankAccount(BankAccountDTO bankAccountDTO){
-        RegisterDAO.insertBankAccount(bankAccountDTO);
+public class WithdrawBookService {
+    public static SavingDTO getSaving(String numberSaving, String idcard){
+        return WithdrawBookDAO.getSaving(numberSaving, idcard);
     }
 }
