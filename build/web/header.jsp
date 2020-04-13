@@ -26,19 +26,19 @@
         <nav class="navbar navbar-expand-sm bg-light">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/register">Đăng kí tài khoản</a>
+                    <a class="nav-link" href="/admin/register">Đăng kí tài khoản</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/saving">Mở sổ tiết kiệm</a>
+                    <a class="nav-link" href="/admin/saving">Mở sổ tiết kiệm</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/withdrawbook">Rút sổ</a>
+                    <a class="nav-link" href="/admin/withdrawbook">Rút sổ</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/interestrate">Tính lãi suất</a>
+                    <a class="nav-link" href="/admin/naptien">Nộp tiền</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#5">Internet Banking</a>
+                    <a class="nav-link" href="/dangxuat">Đăng xuất</a>
                 </li>
             </ul>
         </nav>

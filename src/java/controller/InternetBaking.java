@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author NguyenDinhTien
  */
-@WebServlet(urlPatterns = {"/internetbanking"})
+@WebServlet(urlPatterns = {"/admin/internetbanking"})
 public class InternetBaking extends HttpServlet{
 
     @Override

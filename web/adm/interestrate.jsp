@@ -31,7 +31,7 @@
         </style>
     </head>
     <body>
-        <jsp:include page="/header.jsp"></jsp:include>
+        <jsp:include page="/headerCus.jsp"></jsp:include>
             <div class="container mt-3" style="text-align: center;">
                 <h2>Tính lãi suất</h2>
                 <div style="display: none;" id="error">
@@ -82,39 +82,28 @@
             </table>
 
         </div>
-        <script>
-            
+        <script>  
             function myFunction() {
                 var x = document.getElementById("period").selectedIndex;
-                var y = document.getElementById("period").value;
+                var y = +document.getElementById("period").value;
                 var z = document.getElementById("interestRateLoop").options;
                 var t = document.getElementById("desposite").value;
                 document.getElementById("interestRate").value = z[x - 1].value;
                 if (t < 1000000) {
                     document.getElementById("error").style.display = 'block';
                 } else if (y != 0) {
-                    document.getElementById("profit").value = ((t * z[x - 1].value * y) / 1200).toFixed(2);
+                    document.getElementById("profit").value = ((t * z[x - 1].value * y) / 1200).toFixed(0);
 
                     var date = new Date();
                     var day = date.getDate();
-                    var month = date.getMonth() + 1;
+                    var month = date.getMonth() + y;
                     var year = date.getFullYear();
-                    if (day + 1 > 31) {
-                        day = 1;
-                        month = month + 1;
-                    } else {
-                        day = day + 1;
-                    }
-                    var divYear = y / 12;
-                    var modYear = y % 12;
-                    year = year + divYear;
-                    if (month + modYear > 12) {
-                        year = year + 1;
-                        month = month + modYear - 12;
-                    } else {
-                        month = month + modYear;
-                    }
-                    var nextDate = new Date(year, month - 1, day);
+                    var nextDate = new Date(year, month, day);
+                    if(day == 30 || day == 31){
+                        if(nextDate.getDate()==2||nextDate.getDate()==3){
+                            nextDate.setDate(1);
+                        }
+                    } 
                     document.getElementById("todate").value = nextDate.toLocaleDateString();
                 } else {
                     document.getElementById("profit").value = 0;

@@ -13,7 +13,7 @@ import model.BankAccountDTO;
  * @author NguyenDinhTien
  */
 public class RegisterService {
-    public static void insertBankAccount(BankAccountDTO bankAccountDTO){
-        RegisterDAO.insertBankAccount(bankAccountDTO);
+    public static void insertBankAccount(BankAccountDTO bankAccountDTO, int id){
+        RegisterDAO.insertBankAccount(bankAccountDTO,id);
     }
 }

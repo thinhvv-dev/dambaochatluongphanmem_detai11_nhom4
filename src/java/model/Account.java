@@ -19,6 +19,15 @@ public class Account {
     private String IDcard;
     private String role;
     private String status;
+    private String sotaikhoan;
+
+    public String getSotaikhoan() {
+        return sotaikhoan;
+    }
+
+    public void setSotaikhoan(String sotaikhoan) {
+        this.sotaikhoan = sotaikhoan;
+    }
 
     public int getID() {
         return ID;

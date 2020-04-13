@@ -23,7 +23,7 @@ import service.WithdrawBookService;
  *
  * @author NguyenDinhTien
  */
-@WebServlet(urlPatterns = {"/withdrawbook"})
+@WebServlet(urlPatterns = {"/admin/withdrawbook"})
 public class WithdrawBookController extends HttpServlet {
 
     @Override
@@ -41,7 +41,7 @@ public class WithdrawBookController extends HttpServlet {
         String idCard = req.getParameter("idcard");
         SavingDTO saving = WithdrawBookService.getSaving(savingBook, idCard);
         if (saving.getId() == 0) {
-            resp.sendRedirect("/withdrawbook?message=error");
+            resp.sendRedirect("/admin/withdrawbook?message=error");
         } else {
             List<InterestRateDTO> list = SavingService.getAllInterestRate(1);
             for (int i = 0; i < list.size(); i++) {

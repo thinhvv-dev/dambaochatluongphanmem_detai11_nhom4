@@ -34,7 +34,7 @@
         <jsp:include page="/header.jsp"></jsp:include>
         <div class="container mt-3" style="text-align: center;">
             <h2>Rút sổ</h2>
-            <form action="/withdrawbook" method="post" class="mt-3">
+            <form action="/admin/withdrawbook" method="post" class="mt-3">
                 <table style="font-size: large" class="table table-borderless">
                     <tr>
                         <td><label>Số sổ tiết kiệm</label></td>

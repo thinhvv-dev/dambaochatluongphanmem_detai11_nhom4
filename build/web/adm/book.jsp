@@ -28,6 +28,9 @@
                 padding-top: 12px;
                 margin-top: 8px;
             }
+            .modal-lg {
+                min-width: 1200px !important;
+            }
         </style>
     </head>
     <body onload="myLoad()">
@@ -80,43 +83,59 @@
                 </tr>
                 <tr>
                     <td><label>Ngày mở</label></td>
-                    <td><input type="text" value="${saving.fromDate}" readonly=""></td>
+                    <td><input type="text" id="ngaymo" value="${saving.fromDate}" readonly=""></td>
                     <td><label>Ngày đáo hạn</label></td>
                     <td><input type="text" id="todate" value="${saving.toDate}" readonly="" readonly=""></td>
                 </tr>
                 <tr id="statusSaving">
-                    <td colspan="2"><button type="button" class="btn btn-success" id="extension">Gia hạn</button></td>
-                    <td colspan="2"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Rút sổ tiết kiệm</button></td>
+                    <!--<td colspan="2"><button type="button" class="btn btn-success" id="extension">Rút lãi và gia hạn</button></td>-->
+                    <td colspan="4"><button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">Rút sổ tiết kiệm</button></td>
                 </tr>
             </table>
         </div>
         <div class="modal" id="myModal">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="container mt-3" style="text-align: center;">
-                        <form action="/saving" method="post" class="mt-3">
+                        <form action="/admin/rutso" method="post" class="mt-3">
                             <table style="font-size: large" class="table table-borderless" >
                                 <tr>
                                     <td><label>Số sổ tiết kiệm</label></td>
                                     <td><input type="number" name="mySavingNumber" value="${saving.numberSaving}" readonly=""></td>
-                                </tr>
-                                <tr>
                                     <td><label>Số tiền gửi *</label></td>
                                     <td><input type="number" value="${saving.desposite}" readonly=""></td>
                                 </tr>
-                                <tr>
-                                    <td><label>Thanh toán</label></td>
-                                    <td><input type="text" id="payment" readonly=""></td>
-                                </tr>
                                 <tr hidden="">
                                     <td><label>Không kì hạn</label></td>
-                                    <td><input type="number" id="anticipatory" value="${anticipatory}" readonly=""></td>
+                                    <td><input type="number" name="anticipatory" id="anticipatory" value="${anticipatory}" readonly=""></td>
                                 </tr>
-                                <td><label>Lãi suất (%/năm)</label></td>
-                                <td><input type="number" id="myInterestRate" value="${saving.interestRate}" readonly=""></td>
                                 <tr>     
-                                    <td><label>Trả lãi</label></td>
-                                    <td><input type="number" id="payinterest" readonly="" value="0"></td>
+                                    <td><label>Kì hạn</label></td>
+                                    <td><input type="text" id="songayguidunghan" readonly="" value="0"></td>
+                                    <td><label>Lãi suất (%/năm)</label></td>
+                                    <td><input type="number" value="${saving.interestRate}" readonly=""></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="1"><label>Tiền lãi</label></td>
+                                    <td colspan="3"><input type="number" id="tienlaidunghan" readonly="" value="0"></td>
+                                </tr>
+                                <tr>     
+                                    <td><label>Số ngày gửi quá hạn</label></td>
+                                    <td><input type="number" id="songaygui" readonly="" value="0"></td>
+                                    <td><label>Lãi suất (%/năm)</label></td>
+                                    <td><input type="number" name="myInterestRate" id="myInterestRate" value="${saving.interestRate}" readonly=""></td>
+
+                                </tr>
+                                <tr>
+                                    <td colspan="1"><label>Tiền lãi</label></td>
+                                    <td colspan="3"><input type="number" id="payinterest" readonly="" value="0"></td>
+                                </tr>
+                                <tr>     
+                                    <td colspan="1"><label>Số tiền nhận</label></td>
+                                    <td colspan="3"><input type="number" name="sotiennhan" id="sotiennhan" readonly="" value="0"></td>
+                                </tr>
+                                <tr>     
+                                    <td colspan="4"><button type="sumbit" class="btn btn-success" >Rút sổ</button></td>
                                 </tr>
                             </table>
                         </form>
@@ -125,43 +144,58 @@
             </div>
         </div>
         <script>
-
             function myLoad() {
-                var x = document.getElementById("desposite").value;
-                var y = document.getElementById("interestRate").value;
-                var z = document.getElementById("priod").value;
-
                 var status = document.getElementById("status").value;
-                document.getElementById("profit").value = ((x * y * z) / 1200).toFixed(2);
                 if (status != "Active") {
                     document.getElementById("statusSaving").style.display = 'none';
-                }
-                var todate = document.getElementById("todate").value.toString();
-                var arrayToDate = todate.split("/");
-                var now = new Date();
-                var arrayCurrentDate = now.toLocaleDateString().toString().split("/");
-                if (arrayToDate[0].length === 1) {
-                    arrayToDate[0] = "0" + arrayToDate[0];
-                }
-                if (arrayToDate[1].length === 1) {
-                    arrayToDate[1] = "0" + arrayToDate[1];
-                }
-                if (arrayCurrentDate[0].length === 1) {
-                    arrayCurrentDate[0] = "0" + arrayCurrentDate[0];
-                }
-                if (arrayCurrentDate[1].length === 1) {
-                    arrayCurrentDate[1] = "0" + arrayCurrentDate[1];
-                }
-                var fomatTodate = arrayToDate[2] + arrayToDate[1] + arrayToDate[0];
-                var fomatCurrentdate = arrayCurrentDate[2] + arrayCurrentDate[1] + arrayCurrentDate[0];
-                if (fomatCurrentdate.toString() < fomatTodate.toString()) {
-                    document.getElementById("extension").disabled = true;
-                    document.getElementById("payment").value = "Trước thời hạn";
-                    var i = document.getElementById("anticipatory").value;
-                    document.getElementById("myInterestRate").value = i;
-                    document.getElementById("payinterest").value = 1000
+
                 } else {
-                    document.getElementById("payment").value = "Sau thời hạn";
+                    var x = +document.getElementById("desposite").value;
+                    var y = document.getElementById("interestRate").value;
+                    var z = +document.getElementById("priod").value;
+
+                    
+                    document.getElementById("profit").value = ((x * y * z) / 1200).toFixed(0);
+
+                    var todate = document.getElementById("todate").value.toString();
+                    var ngaymo = document.getElementById("ngaymo").value.toString();
+                    var arrayToDate = todate.split("/");
+                    var arrayNgayMo = ngaymo.split("/");
+
+                    var secondsCurrentdate = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()).getTime();
+                    var ngaymo = new Date(arrayNgayMo[2], Number(arrayNgayMo[1]) - 1, arrayNgayMo[0]);
+                    var solanquahan = 0;
+                    while (true) {
+                        let day = ngaymo.getDate();
+                        let month = ngaymo.getMonth() + z;
+                        let year = ngaymo.getFullYear();
+                        let nextDate = new Date(year, month, day);
+                        if (day == 30 || day == 31) {
+                            if (nextDate.getDate() == 2 || nextDate.getDate() == 3) {
+                                nextDate.setDate(1);
+                            }
+                        }
+                        if (secondsCurrentdate < nextDate.getTime()) {
+                            break;
+                        } else {
+                            ngaymo = nextDate;
+                            solanquahan = solanquahan + 1;
+                        }
+                    }
+                    var songay = (secondsCurrentdate - ngaymo.getTime()) / 86400000;
+                    var i = document.getElementById("anticipatory").value;
+
+                    document.getElementById("myInterestRate").value = i;
+                    document.getElementById("songaygui").value = songay;
+                    var laiquahan = +((x * i * songay) / 36500).toFixed(0);
+                    document.getElementById("payinterest").value = laiquahan;
+
+                    document.getElementById("songayguidunghan").value = solanquahan + " x " + z + " Tháng";
+                    var laidunghan = +((x * y * solanquahan * z) / 1200).toFixed(0);
+                    document.getElementById("tienlaidunghan").value = laidunghan;
+
+                    document.getElementById("anticipatory").value = 0;
+                    document.getElementById("sotiennhan").value = x + laiquahan + laidunghan;
                 }
             }
         </script>

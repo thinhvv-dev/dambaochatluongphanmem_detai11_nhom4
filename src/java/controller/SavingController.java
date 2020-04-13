@@ -16,6 +16,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.Account;
 import model.InterestRateDTO;
 import model.PaymentMethotDTO;
 import model.SavingDTO;
@@ -25,7 +27,7 @@ import service.SavingService;
  *
  * @author NguyenDinhTien
  */
-@WebServlet(urlPatterns = {"/saving"})
+@WebServlet(urlPatterns = {"/admin/saving"})
 public class SavingController extends HttpServlet{
 
     @Override
@@ -43,6 +45,8 @@ public class SavingController extends HttpServlet{
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html");
         req.setCharacterEncoding("UTF-8");
+        HttpSession session = req.getSession();
+        Account user = (Account) session.getAttribute("account");
         SavingDTO savingDTO = new SavingDTO();
         savingDTO.setPeriod(Integer.parseInt(req.getParameter("period")));
         savingDTO.setInterestRate(Float.parseFloat(req.getParameter("interestRate")));
@@ -58,13 +62,13 @@ public class SavingController extends HttpServlet{
         savingDTO.setFromDate(fromDate);
         savingDTO.setIdCard(req.getParameter("idcard"));
         savingDTO.setIssueBy(req.getParameter("issuedBy"));
-        savingDTO.setInsertBy("admin");
+        savingDTO.setInsertBy(user.getID()+"/"+user.getFullName());
         savingDTO.setNumberSaving(req.getParameter("numbersaving"));
         savingDTO.setPaymentMethot(req.getParameter("paymentMethot"));
         savingDTO.setUpdateDate(fromDate);
         savingDTO.setStatus("Active");
         savingDTO.setToDate(req.getParameter("todate"));
         SavingService.insertSaving(savingDTO);
-        resp.sendRedirect("");
+        resp.sendRedirect("/admin/home");
     }
 }

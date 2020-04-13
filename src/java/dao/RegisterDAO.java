@@ -17,9 +17,9 @@ import model.BankAccountDTO;
  * @author NguyenDinhTien
  */
 public class RegisterDAO extends ConnecJDBC{
-    public static void insertBankAccount(BankAccountDTO bankAccountDTO){
+    public static void insertBankAccount(BankAccountDTO bankAccountDTO, int id){
         Connection conn = ConnecJDBC.getConn();
-        String sql = "insert into bankaccount(fullname,address,phone,email,idcard,banknumber,accountbalance,status)values(?,?,?,?,?,?,?,?)";
+        String sql = "insert into bankaccount(fullname,address,phone,email,idcard,banknumber,accountbalance,status,created)values(?,?,?,?,?,?,?,?,?)";
         try {
             PreparedStatement prestm = conn.prepareStatement(sql);
             prestm.setString(1, bankAccountDTO.getFullName());
@@ -30,6 +30,7 @@ public class RegisterDAO extends ConnecJDBC{
             prestm.setString(6, bankAccountDTO.getBanknumber());
             prestm.setBigDecimal(7, bankAccountDTO.getAccountBalance());
             prestm.setString(8, bankAccountDTO.getStatus());
+            prestm.setString(9, id+"");
             prestm.executeUpdate();
             conn.close();
             prestm.close();

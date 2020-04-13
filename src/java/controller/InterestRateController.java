@@ -21,7 +21,7 @@ import service.SavingService;
  *
  * @author NguyenDinhTien
  */
-@WebServlet(urlPatterns = {"/interestrate"})
+@WebServlet(urlPatterns = {"/customer/interestrate"})
 public class InterestRateController extends HttpServlet{
 
     @Override

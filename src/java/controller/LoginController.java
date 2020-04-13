@@ -42,7 +42,12 @@ public class LoginController extends HttpServlet {
             if (account.getPassWord().equals(PassWordEncoder.encoder(passWord))) {
                 HttpSession session = req.getSession();
                 session.setAttribute("account", account);
-                resp.sendRedirect("/home");
+                if(account.getRole().equals("Staff")){
+                    resp.sendRedirect("/admin/home");
+                }
+                else{
+                    resp.sendRedirect("/customer/home");
+                }
             }
             else{
                 resp.sendRedirect("");
